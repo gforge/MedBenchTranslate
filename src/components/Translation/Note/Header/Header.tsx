@@ -1,18 +1,6 @@
 import { Box, Typography } from '@mui/material';
 
-import { Header4Translation } from './types';
-
-export const TranslationNoteHeader = ({
-    type,
-    date,
-    time,
-    author,
-}: Header4Translation) => {
-    const datestr =
-        date instanceof Date ? date.toISOString().slice(0, 12) : date;
-    const timeStr =
-        time instanceof Date ? time.toISOString().slice(11, 16) : time;
-
+export const TranslationNoteHeader = ({ type, date, time, author }: Header) => {
     return (
         <Box
             sx={{
@@ -31,7 +19,7 @@ export const TranslationNoteHeader = ({
                 }}
             >
                 <Typography color="text.secondary">
-                    {datestr} {timeStr}
+                    {date} {time}
                 </Typography>
             </Box>
             <Box
@@ -43,7 +31,7 @@ export const TranslationNoteHeader = ({
             </Box>
             <Box sx={{ flex: 1, visibility: 'hidden' }}>
                 <Typography>
-                    {datestr} {timeStr}
+                    {date} {time}
                 </Typography>
             </Box>
             <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>

@@ -6,6 +6,7 @@ import {
     Typography,
     TypographyProps,
 } from '@mui/material';
+
 import { OriginalNoteHeader } from './Header';
 import { OriginalNoteProps } from './Note';
 

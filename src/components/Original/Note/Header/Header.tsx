@@ -1,19 +1,6 @@
 import { Box, Typography } from '@mui/material';
 
-import { Header4Original } from './types';
-
-export const OriginalNoteHeader = ({
-    type,
-    date,
-    time,
-    author,
-}: Header4Original) => {
-    console.log(date);
-    const datestr =
-        date instanceof Date ? date.toISOString().slice(0, 12) : date;
-    const timeStr =
-        time instanceof Date ? time.toISOString().slice(11, 16) : time;
-
+export const OriginalNoteHeader = ({ type, date, time, author }: Header) => {
     return (
         <Box
             sx={{
@@ -32,7 +19,7 @@ export const OriginalNoteHeader = ({
                 }}
             >
                 <Typography color="text.secondary">
-                    {datestr} {timeStr}
+                    {date} {time}
                 </Typography>
             </Box>
             <Box
@@ -44,7 +31,7 @@ export const OriginalNoteHeader = ({
             </Box>
             <Box sx={{ flex: 1, visibility: 'hidden' }}>
                 <Typography>
-                    {datestr} {timeStr}
+                    {date} {time}
                 </Typography>
             </Box>
             <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>

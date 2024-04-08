@@ -1,11 +1,9 @@
 import { Button, Card, CardActions, CardContent } from '@mui/material';
 
 import { MarkdownTypography } from '../../MarkdownTypography';
-import { Header4Original, OriginalNoteHeader } from './Header';
+import { OriginalNoteHeader } from './Header';
 
-export interface OriginalNoteProps {
-    header: Header4Original;
-    content: string;
+export interface OriginalNoteProps extends Note {
     activated: boolean;
     activateNote?: () => void;
     id: string;

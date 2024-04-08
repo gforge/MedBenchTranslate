@@ -8,12 +8,10 @@ import {
 import { MarkdownTypography } from 'components';
 import { ChangeEventHandler } from 'react';
 
-import { Header4Translation, TranslationNoteHeader } from './Header';
+import { TranslationNoteHeader } from './Header';
 
-export interface TranslationNoteProps {
+export interface TranslationNoteProps extends Note {
     id: string;
-    header: Header4Translation;
-    content: string;
     activated: boolean;
     activateNote?: () => void;
     deactivateNote?: () => void;
