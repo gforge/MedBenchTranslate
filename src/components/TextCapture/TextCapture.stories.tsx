@@ -1,12 +1,12 @@
 import { Paper } from '@mui/material';
+import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
-import { buildFakeHeader } from 'components';
 
-import { TranslationNoteHeader } from './Header';
+import { TextCapture } from './TextCapture';
 
-const meta: Meta<typeof TranslationNoteHeader> = {
-    title: 'Text/Translation/Header',
-    component: TranslationNoteHeader,
+const meta: Meta<typeof TextCapture> = {
+    title: 'Text/Drop',
+    component: TextCapture,
     decorators: (Story) => (
         <Paper sx={{ padding: '10px', width: '500px' }}>
             <Story />
@@ -22,5 +22,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-    args: buildFakeHeader(),
+    args: {
+        onDrop: (text: Note[]) => {
+            console.log(text);
+            action('onDrop')(text);
+        },
+    },
 };
