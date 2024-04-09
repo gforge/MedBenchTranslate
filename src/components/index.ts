@@ -2,6 +2,7 @@
 export * from './BaseGrid';
 export * from './helpers';
 export * from './MarkdownTypography';
+export * from './NoteList';
 export * from './Original';
 export * from './TextCapture';
 export * from './Translation';

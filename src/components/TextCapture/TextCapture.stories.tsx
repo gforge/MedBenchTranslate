@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
     args: {
-        onDrop: (text: Note[]) => {
+        createNewCase: (text: Note[]) => {
             console.log(text);
             action('onDrop')(text);
         },

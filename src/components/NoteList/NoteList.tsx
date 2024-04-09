@@ -22,6 +22,8 @@ const Td = styled('td')({
 export const NoteList = ({ charts, translate, deleteChart }: NoteListProps) => {
     const [active, setActive] = useState<Chart>();
 
+    if (!charts.length) return null;
+
     const cellSeparator = '1px solid #ddd';
     return (
         <>

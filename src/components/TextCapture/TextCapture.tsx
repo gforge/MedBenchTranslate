@@ -5,6 +5,7 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
+    InputLabel,
     TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
@@ -12,15 +13,26 @@ import React, { useState } from 'react';
 import { usePasteHandler } from './usePasteHandler';
 
 export interface TextCaptureProps {
-    onDrop: (text: Note[]) => void;
+    createNewCase: (args: {
+        name: string;
+        specialty: string;
+        notes: Note[];
+    }) => void;
 }
 
-export const TextCapture: React.FC<TextCaptureProps> = ({ onDrop }) => {
+export const TextCapture: React.FC<TextCaptureProps> = ({ createNewCase }) => {
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [name, setName] = useState('');
+    const [specialty, setSpecialty] = useState('');
     const [textInput, setTextInput] = useState('');
     const [badHeaders, setBadHeaders] = React.useState<string[]>([]);
     // Assuming usePasteHandler is adjusted to work with raw text input instead of an event
-    const handlePaste = usePasteHandler({ setBadHeaders, onDrop });
+    const handlePaste = usePasteHandler({
+        setBadHeaders,
+        onDrop: createNewCase,
+        name,
+        specialty,
+    });
 
     const handleOpenDialog = () => {
         setDialogOpen(true);
@@ -47,11 +59,35 @@ export const TextCapture: React.FC<TextCaptureProps> = ({ onDrop }) => {
     return (
         <>
             <Button variant="outlined" onClick={handleOpenDialog}>
-                Click here to paste text
+                Click here to create new case
             </Button>
             <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-                <DialogTitle>Paste Your Text</DialogTitle>
+                <DialogTitle>Create your new case</DialogTitle>
                 <DialogContent>
+                    <InputLabel>Name</InputLabel>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Name"
+                        type="text"
+                        fullWidth
+                        variant="outlined"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <InputLabel>Specialty</InputLabel>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="specialty"
+                        label="Specialty"
+                        type="text"
+                        fullWidth
+                        variant="outlined"
+                        value={specialty}
+                        onChange={(e) => setSpecialty(e.target.value)}
+                    />
                     <TextField
                         autoFocus
                         margin="dense"
@@ -62,6 +98,7 @@ export const TextCapture: React.FC<TextCaptureProps> = ({ onDrop }) => {
                         multiline
                         variant="outlined"
                         onChange={handleTextChange}
+                        placeholder="Paste your text here..."
                     />
                 </DialogContent>
                 <DialogActions>

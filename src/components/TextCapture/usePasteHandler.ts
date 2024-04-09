@@ -3,9 +3,13 @@ import React, { useCallback } from 'react';
 export const usePasteHandler = ({
     setBadHeaders,
     onDrop,
+    name,
+    specialty,
 }: {
     setBadHeaders: React.Dispatch<React.SetStateAction<string[]>>;
-    onDrop: (text: Note[]) => void;
+    onDrop: (args: { name: string; specialty: string; notes: Note[] }) => void;
+    name: string;
+    specialty: string;
 }) =>
     useCallback(
         (text: string) => {
@@ -68,7 +72,11 @@ export const usePasteHandler = ({
             }));
 
             // Call the provided onDrop function with the extracted text
-            onDrop(notes);
+            onDrop({
+                name,
+                specialty,
+                notes,
+            });
         },
-        [onDrop, setBadHeaders]
+        [name, onDrop, setBadHeaders, specialty]
     );
