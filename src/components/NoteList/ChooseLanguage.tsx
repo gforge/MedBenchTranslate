@@ -7,12 +7,15 @@ import {
     DialogTitle,
     TextField,
 } from '@mui/material';
+import { getChartId } from 'helpers';
 import { useMemo, useState } from 'react';
+
+import { TranslateFn } from './types';
 
 interface ChooseLanguageProps {
     chart?: Chart;
     cancel: () => void;
-    translate: (args: { chart: Chart; language: string }) => unknown;
+    translate: TranslateFn;
 }
 
 export const ChooseLanguage = ({
@@ -28,7 +31,6 @@ export const ChooseLanguage = ({
         // Filtered out duplicates
         return Array.from(new Set(merged));
     }, [chart]);
-    console.log(existingLanguages, language);
 
     return (
         <Dialog open={!!chart}>
@@ -40,7 +42,7 @@ export const ChooseLanguage = ({
                     freeSolo
                     options={existingLanguages}
                     renderInput={(params) => (
-                        <TextField {...params} label="freeSolo" />
+                        <TextField {...params} label="Language" />
                     )}
                     onInputChange={(_event, newInputValue) => {
                         setLanguage(newInputValue);
@@ -54,7 +56,7 @@ export const ChooseLanguage = ({
                         if (!language) return;
                         if (!chart) return;
                         // Translate the chart with the provided language code
-                        translate({ chart, language });
+                        translate({ id: getChartId(chart), language });
                         cancel();
                     }}
                 >

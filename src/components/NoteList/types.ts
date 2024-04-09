@@ -1,5 +1,7 @@
+export type TranslateFn = (args: { id: string; language: string }) => unknown;
+
 export interface NoteListProps {
     charts: Chart[];
-    translate: (args: { chart: Chart; language: string }) => void;
-    deleteChart: (args: { chart: Chart }) => void;
+    translate: TranslateFn;
+    deleteChart: (id: string) => void;
 }

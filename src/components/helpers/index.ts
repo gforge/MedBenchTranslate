@@ -2,5 +2,4 @@
 export * from './buildFakeContent';
 export * from './buildFakeHeader';
 export * from './convertNoteId2Date';
-export * from './getNoteId';
 export * from './useScrollToNote';

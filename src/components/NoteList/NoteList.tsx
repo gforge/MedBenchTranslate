@@ -1,4 +1,5 @@
-import { Button, ButtonGroup, styled } from '@mui/material';
+import { Button, ButtonGroup, Paper, styled } from '@mui/material';
+import { getChartId } from 'helpers';
 import { useState } from 'react';
 
 import { ChooseLanguage } from './ChooseLanguage';
@@ -26,8 +27,13 @@ export const NoteList = ({ charts, translate, deleteChart }: NoteListProps) => {
 
     const cellSeparator = '1px solid #ddd';
     return (
-        <>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <Paper sx={{ padding: '10px' }}>
+            <table
+                style={{
+                    width: '100%',
+                    borderCollapse: 'collapse',
+                }}
+            >
                 <thead>
                     <tr>
                         <Th>Name</Th>
@@ -63,7 +69,7 @@ export const NoteList = ({ charts, translate, deleteChart }: NoteListProps) => {
                                             variant="contained"
                                             color="error"
                                             onClick={() =>
-                                                deleteChart({ chart })
+                                                deleteChart(getChartId(chart))
                                             }
                                         >
                                             Delete
@@ -80,6 +86,6 @@ export const NoteList = ({ charts, translate, deleteChart }: NoteListProps) => {
                 cancel={() => setActive(undefined)}
                 translate={translate}
             />
-        </>
+        </Paper>
     );
 };

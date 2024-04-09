@@ -1,7 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { buildFakeHeader, getNoteId } from 'components';
+import { buildFakeHeader } from 'components';
+import { getNoteId } from 'helpers';
 
 import { TranslationChart } from './Chart';
 

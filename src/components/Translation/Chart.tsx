@@ -1,5 +1,6 @@
 import { Box, Button, Paper, Stack, Tooltip } from '@mui/material';
-import { getNoteId, useScrollToActiveNote } from 'components';
+import { useScrollToActiveNote } from 'components';
+import { getNoteId } from 'helpers';
 import React from 'react';
 
 import { TranslationNote, TranslationNoteProps } from './Note';

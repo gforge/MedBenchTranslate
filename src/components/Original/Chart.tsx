@@ -1,5 +1,6 @@
 import { Box, Paper, Stack } from '@mui/material';
-import { getNoteId, useScrollToActiveNote } from 'components';
+import { useScrollToActiveNote } from 'components';
+import { getNoteId } from 'helpers';
 
 import { OriginalNote, OriginalNoteProps } from './Note';
 
