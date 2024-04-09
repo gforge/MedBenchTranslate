@@ -65,6 +65,25 @@ export const NoteList = ({ charts, translate, deleteChart }: NoteListProps) => {
                                         >
                                             Translate
                                         </Button>
+                                        {Object.keys(chart.translations).map(
+                                            (language) => (
+                                                <Button
+                                                    key={language}
+                                                    variant="contained"
+                                                    color="secondary"
+                                                    onClick={() =>
+                                                        translate({
+                                                            id: getChartId(
+                                                                chart
+                                                            ),
+                                                            language,
+                                                        })
+                                                    }
+                                                >
+                                                    {language}
+                                                </Button>
+                                            )
+                                        )}
                                         <Button
                                             variant="contained"
                                             color="error"
