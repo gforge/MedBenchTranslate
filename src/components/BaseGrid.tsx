@@ -1,4 +1,4 @@
-import { Box, Button, Chip, styled } from '@mui/material';
+import { Box, Button, ButtonGroup, Chip, styled } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import {
     OriginalChart,
@@ -15,6 +15,8 @@ type Notes4Language<T extends TranslationChartProps | OriginalChartProps> = {
 interface BaseGridProps {
     originalNotes: Notes4Language<OriginalChartProps>;
     translatedNotes: Notes4Language<TranslationChartProps>;
+    onExit?: () => void;
+    onSubmit?: () => void;
 }
 
 const Content = styled(Box)`
@@ -26,6 +28,8 @@ const Content = styled(Box)`
 export const BaseGrid = ({
     originalNotes: { language: originalLanguage, ...originalNotes },
     translatedNotes: { language: translatedLanguage, ...translatedNotes },
+    onExit,
+    onSubmit,
 }: BaseGridProps) => {
     const [activatedNoteId, activateNote] = useState<string>();
 
@@ -66,7 +70,22 @@ export const BaseGrid = ({
                 alignContent={'flex-end'}
             >
                 <Content>
-                    <Button variant="contained">Submit</Button>
+                    <ButtonGroup>
+                        <Button
+                            variant="contained"
+                            onClick={onSubmit}
+                            color="success"
+                        >
+                            Submit
+                        </Button>
+                        <Button
+                            variant="contained"
+                            onClick={onExit}
+                            color="secondary"
+                        >
+                            Exit
+                        </Button>
+                    </ButtonGroup>
                 </Content>
             </Grid>
         </Grid>
