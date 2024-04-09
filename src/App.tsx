@@ -9,18 +9,28 @@ import { Overview } from './Overview';
 import { Translator } from './Translator';
 
 function App() {
-    console.log('App rendered');
     return (
-        <>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100vh',
+                width: '100vw',
+            }}
+        >
             <h1>MedBench translator</h1>
-            <Routes>
-                <Route path="/" element={<Overview />} />
-                <Route
-                    path="/translator/:chartId/:language"
-                    element={<Translator />}
-                />
-            </Routes>
-        </>
+            <div>
+                <Routes>
+                    <Route path="/" element={<Overview />} />
+                    <Route
+                        path="/translator/:chartId/:language"
+                        element={<Translator />}
+                    />
+                </Routes>
+            </div>
+        </div>
     );
 }
 
