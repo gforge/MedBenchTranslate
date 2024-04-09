@@ -30,7 +30,7 @@ export const BaseGrid = ({
     const [activatedNoteId, activateNote] = useState<string>();
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ textAlign: 'left' }}>
             <Grid xs={6}>
                 <Content>
                     <Chip label={originalLanguage} color="primary" />

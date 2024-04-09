@@ -8,29 +8,37 @@ interface UseChartTranslationsParams {
     chartId: string | undefined;
     chart: Chart | null;
     language: string | undefined;
+    translatedRawNotes: Note[];
 }
 
 export function useChartTranslations({
     chartId,
     chart,
     language,
+    translatedRawNotes,
 }: UseChartTranslationsParams) {
     const dispatch = useDispatch();
 
     const updateNote = useCallback(
         ({ noteId, content }: { noteId: string; content: string }) => {
             if (!chartId || !chart || !language) return;
-            const translation = chart.translations[language];
-            if (!translation) return;
-            const note = translation.find((n) => getNoteId(n) === noteId);
+            const note = translatedRawNotes.find(
+                (n) => getNoteId(n) === noteId
+            );
             if (!note) return;
 
-            note.content = content;
             dispatch(
-                chartsActions.updateChart({ note, id: chartId, language })
+                chartsActions.updateChart({
+                    note: {
+                        ...note,
+                        content,
+                    },
+                    id: chartId,
+                    language,
+                })
             );
         },
-        [chart, chartId, dispatch, language]
+        [chart, chartId, dispatch, language, translatedRawNotes]
     );
 
     const insertNote = useCallback(

@@ -19,11 +19,6 @@ export function Translator() {
     );
 
     const navigate = useNavigate();
-    const { updateNote, insertNote } = useChartTranslations({
-        chartId,
-        chart,
-        language,
-    });
     const translatedRawNotes = useMemo(() => {
         if (!chart || !language) return [];
         const translations = chart.translations[language];
@@ -33,6 +28,12 @@ export function Translator() {
             content: '',
         }));
     }, [chart, language]);
+    const { updateNote, insertNote } = useChartTranslations({
+        chartId,
+        chart,
+        language,
+        translatedRawNotes,
+    });
 
     if (!chart || !language) {
         return <Navigate to="/" />;

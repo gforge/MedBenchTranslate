@@ -1,9 +1,15 @@
-import { Box, Button, Paper, Stack, Tooltip } from '@mui/material';
+import { Add } from '@mui/icons-material';
+import { Box, IconButton, Paper, Stack, Tooltip } from '@mui/material';
 import { useScrollToActiveNote } from 'components';
 import { getNoteId } from 'helpers';
 import React from 'react';
 
 import { TranslationNote, TranslationNoteProps } from './Note';
+
+type InsertNoteFn = (args: {
+    noteId: string;
+    position: 'before' | 'after';
+}) => void;
 
 export interface TranslationChartProps {
     notes: Omit<
@@ -13,10 +19,7 @@ export interface TranslationChartProps {
     activatedNoteId?: string;
     activateNote: (noteId?: string) => void;
     updateNote: (args: { noteId: string; content: string }) => void;
-    insertNote: (args: {
-        noteId: string;
-        position: 'before' | 'after';
-    }) => void;
+    insertNote: InsertNoteFn;
 }
 
 /**
@@ -43,6 +46,39 @@ const filterNote =
 
         updateNote({ noteId, content });
     };
+
+const AddButton = ({
+    insertNote,
+    noteId,
+    title,
+    position,
+}: {
+    insertNote: InsertNoteFn;
+    title: string;
+    noteId: string;
+    position: 'before' | 'after';
+}) => (
+    <Stack
+        spacing={1}
+        direction="row"
+        justifyContent={'end'}
+        sx={{ margin: '0px' }}
+    >
+        <Tooltip title={title}>
+            <IconButton
+                onClick={() =>
+                    insertNote({
+                        noteId,
+                        position,
+                    })
+                }
+                color="success"
+            >
+                <Add />
+            </IconButton>
+        </Tooltip>
+    </Stack>
+);
 
 export const TranslationChart = ({
     notes,
@@ -72,20 +108,12 @@ export const TranslationChart = ({
                         return (
                             <React.Fragment key={noteId}>
                                 {index === 0 && (
-                                    <Tooltip title="Inser a note before the first one">
-                                        <Button
-                                            onClick={() =>
-                                                insertNote({
-                                                    noteId,
-                                                    position: 'before',
-                                                })
-                                            }
-                                            variant="contained"
-                                            color="success"
-                                        >
-                                            +
-                                        </Button>
-                                    </Tooltip>
+                                    <AddButton
+                                        insertNote={insertNote}
+                                        noteId={noteId}
+                                        title="Inser a note before the first one"
+                                        position="before"
+                                    />
                                 )}
                                 <TranslationNote
                                     id={prefix + noteId}
@@ -98,20 +126,12 @@ export const TranslationChart = ({
                                         noteId,
                                     })}
                                 />
-                                <Tooltip title="Inser a note">
-                                    <Button
-                                        onClick={() =>
-                                            insertNote({
-                                                noteId,
-                                                position: 'after',
-                                            })
-                                        }
-                                        variant="contained"
-                                        color="success"
-                                    >
-                                        +
-                                    </Button>
-                                </Tooltip>
+                                <AddButton
+                                    insertNote={insertNote}
+                                    noteId={noteId}
+                                    title="Insert a note"
+                                    position="after"
+                                />
                             </React.Fragment>
                         );
                     })}

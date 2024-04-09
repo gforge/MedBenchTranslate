@@ -48,7 +48,10 @@ export const { reducer: chartsReducer, actions: chartsActions } = createSlice({
             }
 
             if (!chart.translations[language]) {
-                chart.translations[language] = [];
+                chart.translations[language] = chart.originalNotes.map((n) => ({
+                    header: { ...n.header },
+                    content: '',
+                }));
             }
 
             const noteIndex = chart.translations[language].findIndex(
