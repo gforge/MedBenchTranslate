@@ -41,6 +41,11 @@ const BaseGridWrapper = ({
 
             action('insertNote')(args);
         },
+        deleteNote: (args: unknown) => {
+            console.log(args);
+
+            action('deleteNote')(args);
+        },
     };
 
     return (
