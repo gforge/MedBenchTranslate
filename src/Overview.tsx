@@ -34,6 +34,18 @@ export function Overview() {
         },
         [dispatch]
     );
+    const setChartName = useCallback(
+        ({ id, name }: { id: string; name: string }) => {
+            dispatch(chartsActions.renameChart({ id, name }));
+        },
+        [dispatch]
+    );
+    const setChartSpecialty = useCallback(
+        ({ id, specialty }: { id: string; specialty: string }) => {
+            dispatch(chartsActions.renameChart({ id, specialty }));
+        },
+        [dispatch]
+    );
     const charts = useSelector(selectCharts);
 
     return (
@@ -42,6 +54,8 @@ export function Overview() {
                 charts={charts}
                 translate={translate}
                 deleteChart={deleteChart}
+                setChartName={setChartName}
+                setChartSpecialty={setChartSpecialty}
             />
             <br />
             <TextCapture createNewCase={createNewCase} />

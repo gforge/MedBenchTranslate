@@ -1,36 +1,38 @@
-import { Button, ButtonGroup, styled } from '@mui/material';
+import { Button, ButtonGroup } from '@mui/material';
 import { getChartId } from 'helpers';
+import { useCallback } from 'react';
 
-import { TranslateFn } from './types';
-
-const Td = styled('td')({
-    fontWeight: 'normal',
-    textAlign: 'left',
-    padding: '5px',
-    paddingLeft: '10px',
-    paddingRight: '10px',
-});
-
-interface NoteListRowProps {
-    chart: Chart;
-    translate: TranslateFn;
-    deleteChart: (id: string) => void;
-    setActive: (chart: Chart) => void;
-}
+import { EditableTd } from './EditableTd';
+import { StyledTd as Td } from './StyledTd';
+import { NoteListRowProps } from './types';
 
 export const NoteListRow = ({
     chart,
     translate,
     deleteChart,
     setActive,
+    setChartName,
+    setChartSpecialty,
 }: NoteListRowProps) => {
-    const cellSeparator = '1px solid #ddd';
+    const setName = useCallback(
+        (name: string) => {
+            setChartName({ id: getChartId(chart), name });
+        },
+        [chart, setChartName]
+    );
+    const setSpecialty = useCallback(
+        (specialty: string) => {
+            setChartSpecialty({ id: getChartId(chart), specialty });
+        },
+        [chart, setChartSpecialty]
+    );
+
     const borderBottom = '1px solid #ccc';
     const { name, specialty } = chart;
     return (
         <tr style={{ borderBottom }}>
-            <Td style={{ borderRight: cellSeparator }}>{name}</Td>
-            <Td style={{ borderRight: cellSeparator }}>{specialty}</Td>
+            <EditableTd text={name} setText={setName} />
+            <EditableTd text={specialty} setText={setSpecialty} />
             <Td
                 style={{
                     textAlign: 'left',

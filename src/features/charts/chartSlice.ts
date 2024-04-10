@@ -34,6 +34,29 @@ export const { reducer: chartsReducer, actions: chartsActions } = createSlice({
         deleteChart: (state, { payload: id }: PayloadAction<string>) => {
             state.charts = state.charts.filter((c) => getChartId(c) !== id);
         },
+        renameChart: (
+            state,
+            action: PayloadAction<{
+                id: string;
+                name?: string;
+                specialty?: string;
+            }>
+        ) => {
+            const { id, name, specialty } = action.payload;
+            if (!name && !specialty) {
+                return;
+            }
+            const chart = state.charts.find((c) => getChartId(c) === id);
+            if (!chart) {
+                return;
+            }
+            if (specialty) {
+                chart.specialty = specialty;
+            }
+            if (name) {
+                chart.name = name;
+            }
+        },
         updateChart: (
             state,
             action: PayloadAction<{ note: Note; id: string; language: string }>

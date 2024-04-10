@@ -13,7 +13,13 @@ const Th = styled('th')({
     borderBottom: '1px solid #979797',
 });
 
-export const NoteList = ({ charts, translate, deleteChart }: NoteListProps) => {
+export const NoteList = ({
+    charts,
+    translate,
+    deleteChart,
+    setChartName,
+    setChartSpecialty,
+}: NoteListProps) => {
     const [active, setActive] = useState<Chart>();
 
     if (!charts.length) return null;
@@ -40,6 +46,8 @@ export const NoteList = ({ charts, translate, deleteChart }: NoteListProps) => {
                             translate={translate}
                             deleteChart={deleteChart}
                             setActive={setActive}
+                            setChartName={setChartName}
+                            setChartSpecialty={setChartSpecialty}
                         />
                     ))}
                 </tbody>
