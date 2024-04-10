@@ -25,14 +25,15 @@ export const NoteListRow = ({
     setActive,
 }: NoteListRowProps) => {
     const cellSeparator = '1px solid #ddd';
+    const borderBottom = '1px solid #ccc';
     const { name, specialty } = chart;
     return (
-        <tr>
+        <tr style={{ borderBottom }}>
             <Td style={{ borderRight: cellSeparator }}>{name}</Td>
             <Td style={{ borderRight: cellSeparator }}>{specialty}</Td>
             <Td
                 style={{
-                    textAlign: 'center',
+                    textAlign: 'left',
                 }}
             >
                 <ButtonGroup>

@@ -5,7 +5,6 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    InputLabel,
     TextField,
 } from '@mui/material';
 import React, { useState } from 'react';
@@ -64,7 +63,6 @@ export const TextCapture: React.FC<TextCaptureProps> = ({ createNewCase }) => {
             <Dialog open={dialogOpen} onClose={handleCloseDialog}>
                 <DialogTitle>Create your new case</DialogTitle>
                 <DialogContent>
-                    <InputLabel>Name</InputLabel>
                     <TextField
                         autoFocus
                         margin="dense"
@@ -76,9 +74,7 @@ export const TextCapture: React.FC<TextCaptureProps> = ({ createNewCase }) => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
-                    <InputLabel>Specialty</InputLabel>
                     <TextField
-                        autoFocus
                         margin="dense"
                         id="specialty"
                         label="Specialty"
@@ -89,7 +85,6 @@ export const TextCapture: React.FC<TextCaptureProps> = ({ createNewCase }) => {
                         onChange={(e) => setSpecialty(e.target.value)}
                     />
                     <TextField
-                        autoFocus
                         margin="dense"
                         id="text"
                         label="Text"
