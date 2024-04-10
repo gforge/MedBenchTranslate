@@ -84,7 +84,7 @@ export const BaseGrid = ({
                             onClick={onSubmit}
                             color="success"
                         >
-                            Submit
+                            Save
                         </Button>
                         <Button
                             variant="contained"
