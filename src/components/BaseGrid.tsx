@@ -6,7 +6,7 @@ import {
     TranslationChart,
     TranslationChartProps,
 } from 'components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Notes4Language<T extends TranslationChartProps | OriginalChartProps> = {
     language: string;
@@ -17,6 +17,7 @@ interface BaseGridProps {
     translatedNotes: Notes4Language<TranslationChartProps>;
     onExit?: () => void;
     onSubmit?: () => void;
+    reInsertDeletedNote?: (noteId: string) => void;
 }
 
 const Content = styled(Box)`
@@ -30,8 +31,15 @@ export const BaseGrid = ({
     translatedNotes: { language: translatedLanguage, ...translatedNotes },
     onExit,
     onSubmit,
+    reInsertDeletedNote,
 }: BaseGridProps) => {
     const [activatedNoteId, activateNote] = useState<string>();
+    // Make sure that the activated note exists in the target language
+    // it can have been inadvertadly deleted
+    useEffect(() => {
+        if (!activatedNoteId || !reInsertDeletedNote) return;
+        reInsertDeletedNote(activatedNoteId);
+    }, [activatedNoteId, reInsertDeletedNote]);
 
     return (
         <Grid container spacing={2} sx={{ textAlign: 'left' }}>

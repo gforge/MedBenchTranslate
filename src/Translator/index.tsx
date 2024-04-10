@@ -27,12 +27,13 @@ export function Translator() {
             content: '',
         }));
     }, [chart, language]);
-    const { updateNote, insertNote } = useChartTranslations({
-        chartId,
-        chart,
-        language,
-        translatedRawNotes,
-    });
+    const { updateNote, insertNote, deleteNote, reInsertDeletedNote } =
+        useChartTranslations({
+            chartId,
+            chart,
+            language,
+            translatedRawNotes,
+        });
 
     const { downloadTranslatedChart } = useDownload({
         chartId,
@@ -55,7 +56,9 @@ export function Translator() {
                 notes: translatedRawNotes,
                 insertNote,
                 updateNote,
+                deleteNote,
             }}
+            reInsertDeletedNote={reInsertDeletedNote}
             onExit={() => navigate('/')}
             onSubmit={downloadTranslatedChart}
         />

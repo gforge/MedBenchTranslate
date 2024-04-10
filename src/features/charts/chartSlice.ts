@@ -63,7 +63,48 @@ export const { reducer: chartsReducer, actions: chartsActions } = createSlice({
             chart.translations[language][noteIndex] = note;
             chart.translations[language].sort(timeCompareNotes());
         },
-        // Insert a note between other notes
+        reInsertDeletedNote(
+            state,
+            action: PayloadAction<{
+                chartId: string;
+                noteId: string;
+                language: string;
+            }>
+        ) {
+            const { chartId, noteId, language } = action.payload;
+            const chart = state.charts.find((c) => getChartId(c) === chartId);
+            if (!chart) {
+                return;
+            }
+            const deletedNote = chart.originalNotes.find(
+                (n) => getNoteId(n) === noteId
+            );
+            if (!deletedNote) {
+                return;
+            }
+
+            // Should not be possible
+            if (!chart.translations[language]) {
+                chart.translations[language] = chart.originalNotes.map((n) => ({
+                    header: { ...n.header },
+                    content: '',
+                }));
+                return;
+            }
+            const exists = chart.translations[language].find(
+                (n) => getNoteId(n) === noteId
+            );
+            if (exists) {
+                return;
+            }
+
+            chart.translations[language].push({
+                header: { ...deletedNote.header },
+                content: '',
+            });
+
+            chart.translations[language].sort(timeCompareNotes());
+        },
         insertNote(
             state,
             action: PayloadAction<{
@@ -106,6 +147,25 @@ export const { reducer: chartsReducer, actions: chartsActions } = createSlice({
             };
             chart.translations[language].push(newNote);
 
+            // sort the notes by date
+            chart.translations[language].sort(timeCompareNotes());
+        },
+        deleteNote(
+            state,
+            payload: PayloadAction<{
+                chartId: string;
+                noteId: string;
+                language: string;
+            }>
+        ) {
+            const { chartId, noteId, language } = payload.payload;
+            const chart = state.charts.find((c) => getChartId(c) === chartId);
+            if (!chart) {
+                return;
+            }
+            chart.translations[language] = chart.translations[language].filter(
+                (n) => getNoteId(n) !== noteId
+            );
             // sort the notes by date
             chart.translations[language].sort(timeCompareNotes());
         },

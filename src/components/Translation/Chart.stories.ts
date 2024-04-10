@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { buildFakeHeader } from 'components';
@@ -34,7 +35,9 @@ export const Basic = ((): Story => {
         args: {
             notes,
             activatedNoteId,
-            activateNote: fn(console.log),
+            activateNote: action('activateNote'),
+            updateNote: action('updateNote'),
+            deleteNote: action('deleteNote'),
         },
     };
 })();

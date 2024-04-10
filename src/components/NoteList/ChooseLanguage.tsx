@@ -27,7 +27,14 @@ export const ChooseLanguage = ({
     const existingLanguages = useMemo(() => {
         const existing = Object.keys(chart?.translations || {});
         // Merge with the existing languages
-        const merged = [...existing, 'Swedish', 'Finnish', 'Danish'];
+        const merged = [
+            ...existing,
+            'Swedish',
+            'Finnish',
+            'Danish',
+            'Spanish',
+            'German',
+        ];
         // Filtered out duplicates
         return Array.from(new Set(merged));
     }, [chart]);

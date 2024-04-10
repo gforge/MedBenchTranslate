@@ -1,31 +1,38 @@
 import {
     Button,
+    ButtonGroup,
     Card,
     CardActions,
     CardContent,
     TextareaAutosize,
 } from '@mui/material';
 import { MarkdownTypography } from 'components';
-import { ChangeEventHandler } from 'react';
 
 import { TranslationNoteHeader } from './Header';
 
 export interface TranslationNoteProps extends Note {
     id: string;
     activated: boolean;
+    existingTypes: string[];
     activateNote?: () => void;
     deactivateNote?: () => void;
-    onChange?: ChangeEventHandler<HTMLTextAreaElement>;
+    onUpdate: (args: {
+        content: string | undefined;
+        type: string | undefined;
+    }) => void;
+    deleteNote: () => void;
 }
 
 export const TranslationNote = ({
     id,
     header,
     content,
+    existingTypes,
     activated,
     activateNote,
     deactivateNote,
-    onChange,
+    onUpdate,
+    deleteNote,
 }: TranslationNoteProps) => (
     <Card
         id={id}
@@ -37,14 +44,22 @@ export const TranslationNote = ({
         onDoubleClick={activateNote}
     >
         <CardContent>
-            <TranslationNoteHeader {...header} />
+            <TranslationNoteHeader
+                {...header}
+                onTypeChange={(type: string) =>
+                    onUpdate({ content: undefined, type })
+                }
+                existingTypes={existingTypes}
+            />
             {activated ? (
                 <TextareaAutosize
                     aria-label="minimum height"
                     minRows={3}
                     placeholder="The content of the note"
                     value={content}
-                    onChange={onChange}
+                    onChange={(e) =>
+                        onUpdate({ content: e.target.value, type: undefined })
+                    }
                     style={{
                         width: '100%',
                         border: '1px solid #ccc',
@@ -56,12 +71,19 @@ export const TranslationNote = ({
                 <MarkdownTypography content={content} />
             )}
         </CardContent>
-        {activated && (
-            <CardActions sx={{ justifyContent: 'flex-end' }}>
-                <Button size="small" onClick={deactivateNote}>
-                    Exit
-                </Button>
-            </CardActions>
-        )}
+        <CardActions sx={{ justifyContent: 'flex-end' }}>
+            <ButtonGroup>
+                {activated && (
+                    <Button size="small" onClick={deactivateNote}>
+                        Exit
+                    </Button>
+                )}
+                {!activated && (
+                    <Button size="small" onClick={deleteNote} color="error">
+                        Delete
+                    </Button>
+                )}
+            </ButtonGroup>
+        </CardActions>
     </Card>
 );

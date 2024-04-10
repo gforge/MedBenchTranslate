@@ -29,10 +29,11 @@ export const Basic: Story = {
     args: {
         header: buildFakeHeader(),
         content: faker.lorem.paragraph(),
+        onUpdate: action('inactiveNote'),
+        deleteNote: action('deleteNote'),
         activated: false,
-        onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-            action('inactiveNote')(e.target.value);
-        },
+        activateNote: action('activateNote'),
+        deactivateNote: action('deactivateNote'),
     },
 };
 
@@ -40,9 +41,10 @@ export const Active: Story = {
     args: {
         header: buildFakeHeader(),
         content: faker.lorem.paragraph(),
+        onUpdate: action('activatedNote'),
+        deleteNote: action('deleteNote'),
         activated: true,
-        onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-            action('activatedNote')(e.target.value);
-        },
+        activateNote: action('activateNote'),
+        deactivateNote: action('deactivateNote'),
     },
 };

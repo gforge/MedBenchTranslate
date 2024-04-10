@@ -1,7 +1,7 @@
 import { Box, Paper, Stack } from '@mui/material';
 import { useScrollToActiveNote } from 'components';
 import { getNoteId } from 'helpers';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { AddNote } from './AddNote';
 import { filterNote } from './filterNote';
@@ -14,9 +14,15 @@ export const TranslationChart = ({
     activateNote,
     updateNote,
     insertNote,
+    deleteNote,
 }: TranslationChartProps) => {
     const prefix = 'translation_';
     useScrollToActiveNote({ activatedNoteId, prefix });
+    const existingTypes = useMemo(() => {
+        const types = notes.map(({ header }) => header.type);
+        const uniqueTypes = new Set(types);
+        return Array.from(uniqueTypes);
+    }, [notes]);
 
     return (
         <Paper elevation={1} style={{ padding: '1em' }}>
@@ -46,13 +52,15 @@ export const TranslationChart = ({
                                 <TranslationNote
                                     id={prefix + noteId}
                                     activated={activatedNoteId === noteId}
+                                    existingTypes={existingTypes}
                                     {...note}
                                     activateNote={() => activateNote(noteId)}
                                     deactivateNote={() => activateNote('')}
-                                    onChange={filterNote({
+                                    onUpdate={filterNote({
                                         updateNote,
                                         noteId,
                                     })}
+                                    deleteNote={() => deleteNote(noteId)}
                                 />
                                 <AddNote
                                     insertNote={insertNote}

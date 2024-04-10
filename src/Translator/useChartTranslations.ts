@@ -27,18 +27,30 @@ export function useChartTranslations({
     const dispatch = useDispatch();
 
     const updateNote = useCallback(
-        ({ noteId, content }: { noteId: string; content: string }) => {
+        ({
+            noteId,
+            content,
+            type,
+        }: {
+            noteId: string;
+            content: string | undefined;
+            type: string | undefined;
+        }) => {
             if (!chartId || !chart || !language) return;
             const note = translatedRawNotes.find(
                 (n) => getNoteId(n) === noteId
             );
-            if (!note) return;
+            if (!note || (!type && !content)) return;
 
             dispatch(
                 chartsActions.updateChart({
                     note: {
                         ...note,
-                        content,
+                        header: {
+                            ...note.header,
+                            type: type ?? note.header.type,
+                        },
+                        content: content ?? note.content,
                     },
                     id: chartId,
                     language,
@@ -65,5 +77,33 @@ export function useChartTranslations({
         [chart, chartId, dispatch, language]
     );
 
-    return { updateNote, insertNote };
+    const deleteNote = useCallback(
+        (noteId: string) => {
+            if (!chartId || !chart || !language) return;
+            dispatch(
+                chartsActions.deleteNote({
+                    chartId,
+                    noteId,
+                    language,
+                })
+            );
+        },
+        [chart, chartId, dispatch, language]
+    );
+
+    const reInsertDeletedNote = useCallback(
+        (noteId: string) => {
+            if (!chartId || !chart || !language) return;
+            dispatch(
+                chartsActions.reInsertDeletedNote({
+                    chartId,
+                    noteId,
+                    language,
+                })
+            );
+        },
+        [chart, chartId, dispatch, language]
+    );
+
+    return { updateNote, insertNote, deleteNote, reInsertDeletedNote };
 }

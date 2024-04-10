@@ -1,6 +1,21 @@
 import { Box, Typography } from '@mui/material';
+import { useState } from 'react';
 
-export const TranslationNoteHeader = ({ type, date, time, author }: Header) => {
+import { HeaderDate } from './HeaderDate';
+import { TypeEditor, TypeEditorProps } from './TypeEditor';
+
+export const TranslationNoteHeader = ({
+    type,
+    date,
+    time,
+    author,
+    onTypeChange,
+    existingTypes,
+}: Header & {
+    onTypeChange: TypeEditorProps['onTextChange'];
+    existingTypes: string[];
+}) => {
+    const [isEditing, setIsEditing] = useState(false);
     return (
         <Box
             sx={{
@@ -9,38 +24,17 @@ export const TranslationNoteHeader = ({ type, date, time, author }: Header) => {
                 alignItems: 'center',
                 height: '48px',
             }}
+            onClick={() => setIsEditing(true)}
         >
-            <Box
-                sx={{
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    textAlign: 'center',
-                }}
-            >
-                <Typography color="text.secondary">
-                    {date} {time}
-                </Typography>
-            </Box>
-            <Box
-                sx={{
-                    flex: 1,
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    overflow: 'hidden',
-                    width: 0,
-                    height: '100%',
-                }}
-            >
-                <Typography variant="subtitle1" component="div">
-                    {type}
-                </Typography>
-            </Box>
-            <Box sx={{ flex: 1, visibility: 'hidden' }}>
-                <Typography>
-                    {date} {time}
-                </Typography>
-            </Box>
+            <HeaderDate date={date} time={time} />
+            <TypeEditor
+                type={type}
+                onTextChange={onTypeChange}
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                existingTypes={existingTypes}
+            />
+            <Box sx={{ flex: 1 }} />
             <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
                 <Typography color="text.secondary">{author}</Typography>
             </Box>
