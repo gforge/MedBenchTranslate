@@ -2,6 +2,8 @@
  * Note header
  */
 declare type Header = {
+    /** A string that is unique to this header */
+    id: string;
     /**
      * Type of the note, e.g. "Surgery note", "Daily progress note"
      */

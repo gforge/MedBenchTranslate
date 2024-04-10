@@ -1,3 +1,4 @@
+import { getNoteId } from 'helpers';
 import React, { useCallback } from 'react';
 
 export const usePasteHandler = ({
@@ -61,15 +62,23 @@ export const usePasteHandler = ({
                 setBadHeaders([]);
             }
 
-            const notes: Note[] = rawContent.map(({ header, content }) => ({
-                header: {
+            const notes: Note[] = rawContent.map((note) => {
+                const { header, content } = note;
+                const headerBase: Omit<Note['header'], 'id'> = {
                     type: header[0],
                     date: header[1],
                     time: header[2].replace('.', ':'),
                     author: header[3],
-                },
-                content,
-            }));
+                };
+
+                return {
+                    header: {
+                        id: getNoteId({ header: headerBase }),
+                        ...headerBase,
+                    },
+                    content,
+                };
+            });
 
             // Call the provided onDrop function with the extracted text
             onDrop({
