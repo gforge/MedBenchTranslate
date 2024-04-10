@@ -30,7 +30,6 @@ export const NoteList = ({ charts, translate, deleteChart }: NoteListProps) => {
         <Paper sx={{ padding: '10px' }}>
             <table
                 style={{
-                    width: '100%',
                     borderCollapse: 'collapse',
                 }}
             >

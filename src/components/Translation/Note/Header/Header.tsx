@@ -23,7 +23,14 @@ export const TranslationNoteHeader = ({ type, date, time, author }: Header) => {
                 </Typography>
             </Box>
             <Box
-                sx={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}
+                sx={{
+                    flex: 1,
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    overflow: 'hidden',
+                    width: 0,
+                    height: '100%',
+                }}
             >
                 <Typography variant="subtitle1" component="div">
                     {type}

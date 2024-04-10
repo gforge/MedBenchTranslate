@@ -2,6 +2,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import './App.css';
 
 import { Route, Routes } from 'react-router-dom';
 
@@ -10,18 +11,9 @@ import { Translator } from './Translator';
 
 function App() {
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '100vh',
-                width: '100vw',
-            }}
-        >
-            <h1>MedBench translator</h1>
-            <div>
+        <>
+            <header>MedBench translator</header>
+            <div className="content">
                 <Routes>
                     <Route path="/" element={<Overview />} />
                     <Route
@@ -30,7 +22,7 @@ function App() {
                     />
                 </Routes>
             </div>
-        </div>
+        </>
     );
 }
 
