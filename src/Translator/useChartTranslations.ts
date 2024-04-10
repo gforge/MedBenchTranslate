@@ -11,6 +11,13 @@ interface UseChartTranslationsParams {
     translatedRawNotes: Note[];
 }
 
+interface InsertNoteArgs {
+    noteId: string;
+    position: 'before' | 'after';
+    type: string;
+    author: string;
+}
+
 export function useChartTranslations({
     chartId,
     chart,
@@ -42,13 +49,7 @@ export function useChartTranslations({
     );
 
     const insertNote = useCallback(
-        ({
-            noteId,
-            position,
-        }: {
-            noteId: string;
-            position: 'before' | 'after';
-        }) => {
+        ({ noteId, position, type, author }: InsertNoteArgs) => {
             if (!chartId || !chart || !language) return;
             dispatch(
                 chartsActions.insertNote({
@@ -56,6 +57,8 @@ export function useChartTranslations({
                     noteId,
                     language,
                     position,
+                    type,
+                    author,
                 })
             );
         },

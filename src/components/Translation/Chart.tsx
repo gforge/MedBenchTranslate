@@ -1,84 +1,12 @@
-import { Add } from '@mui/icons-material';
-import { Box, IconButton, Paper, Stack, Tooltip } from '@mui/material';
+import { Box, Paper, Stack } from '@mui/material';
 import { useScrollToActiveNote } from 'components';
 import { getNoteId } from 'helpers';
 import React from 'react';
 
-import { TranslationNote, TranslationNoteProps } from './Note';
-
-type InsertNoteFn = (args: {
-    noteId: string;
-    position: 'before' | 'after';
-}) => void;
-
-export interface TranslationChartProps {
-    notes: Omit<
-        TranslationNoteProps,
-        'activated' | 'id' | 'deactivateNote' | 'onChange'
-    >[];
-    activatedNoteId?: string;
-    activateNote: (noteId?: string) => void;
-    updateNote: (args: { noteId: string; content: string }) => void;
-    insertNote: InsertNoteFn;
-}
-
-/**
- * Filter the note content to ensure that it is valid
- * i.e. a note can only have second level headers
- */
-const filterNote =
-    ({
-        updateNote,
-        noteId,
-    }: Pick<TranslationChartProps, 'updateNote'> & { noteId: string }) =>
-    ({ target: { value } }: React.ChangeEvent<HTMLTextAreaElement>) => {
-        let content = value;
-        // A note can only have second level headers
-        // if a note has a first level header, all headers should moved to second level and below
-        // thus we need to check each new line for '# '
-        const lines = value.split('\n');
-        const hasFirstLevelHeader = lines.some((line) => line.startsWith('# '));
-        if (hasFirstLevelHeader) {
-            content = lines
-                .map((line) => (line.startsWith('#') ? '#' + line : line))
-                .join('\n');
-        }
-
-        updateNote({ noteId, content });
-    };
-
-const AddButton = ({
-    insertNote,
-    noteId,
-    title,
-    position,
-}: {
-    insertNote: InsertNoteFn;
-    title: string;
-    noteId: string;
-    position: 'before' | 'after';
-}) => (
-    <Stack
-        spacing={1}
-        direction="row"
-        justifyContent={'end'}
-        sx={{ margin: '0px' }}
-    >
-        <Tooltip title={title}>
-            <IconButton
-                onClick={() =>
-                    insertNote({
-                        noteId,
-                        position,
-                    })
-                }
-                color="success"
-            >
-                <Add />
-            </IconButton>
-        </Tooltip>
-    </Stack>
-);
+import { AddNote } from './AddNote';
+import { filterNote } from './filterNote';
+import { TranslationNote } from './Note';
+import { TranslationChartProps } from './types';
 
 export const TranslationChart = ({
     notes,
@@ -108,7 +36,7 @@ export const TranslationChart = ({
                         return (
                             <React.Fragment key={noteId}>
                                 {index === 0 && (
-                                    <AddButton
+                                    <AddNote
                                         insertNote={insertNote}
                                         noteId={noteId}
                                         title="Inser a note before the first one"
@@ -126,7 +54,7 @@ export const TranslationChart = ({
                                         noteId,
                                     })}
                                 />
-                                <AddButton
+                                <AddNote
                                     insertNote={insertNote}
                                     noteId={noteId}
                                     title="Insert a note"

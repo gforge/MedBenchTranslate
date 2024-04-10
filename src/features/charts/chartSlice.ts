@@ -71,9 +71,12 @@ export const { reducer: chartsReducer, actions: chartsActions } = createSlice({
                 noteId: string;
                 language: string;
                 position: 'before' | 'after';
+                type: string;
+                author: string;
             }>
         ) {
-            const { chartId, language, noteId, position } = action.payload;
+            const { chartId, language, noteId, position, type, author } =
+                action.payload;
             const chart = state.charts.find((c) => getChartId(c) === chartId);
             if (!chart) {
                 return;
@@ -93,10 +96,11 @@ export const { reducer: chartsReducer, actions: chartsActions } = createSlice({
             });
             const newNote: Note = {
                 header: {
-                    type: '',
+                    id: `New_note_${Math.random().toString()}`,
+                    type,
                     date: shiftedDate.format('YYYY-MM-DD'),
                     time: shiftedDate.format('HH:mm'),
-                    author: '',
+                    author,
                 },
                 content: '',
             };
