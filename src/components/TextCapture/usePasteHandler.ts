@@ -56,7 +56,23 @@ export const usePasteHandler = ({
                     'Invalid headers:',
                     invalidHeaders.map(({ rawHeader }) => rawHeader).join('\n')
                 );
-                setBadHeaders(invalidHeaders.map(({ rawHeader }) => rawHeader));
+
+                // Warn that the first section should be a header
+                if (
+                    invalidHeaders[0].index === 0 &&
+                    !invalidHeaders[0].rawHeader.startsWith('# ')
+                ) {
+                    setBadHeaders([
+                        'First section should be a header starting with "# "',
+                    ]);
+                    return;
+                }
+
+                setBadHeaders(
+                    invalidHeaders.map(
+                        ({ index, rawHeader }) => `[${index}]: ${rawHeader}`
+                    )
+                );
                 return;
             } else {
                 setBadHeaders([]);

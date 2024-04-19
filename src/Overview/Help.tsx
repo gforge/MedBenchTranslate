@@ -39,7 +39,7 @@ export const OverviewHelp = ({ show }: { show: boolean }) => {
                     </ListItemIcon>
                     <ListItemText
                         primary="Each section is separated by a main header, designated with a single hash (#)."
-                        secondary="E.g. # History of Present Illness, 2021-09-01, 10:00, Dr. Smith"
+                        secondary="E.g. # ED admission note, 2021-09-01, 10:00, Dr. Smith"
                     />
                 </ListItem>
                 <ListItem>

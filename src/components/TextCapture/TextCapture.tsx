@@ -6,6 +6,7 @@ import {
     DialogContent,
     DialogTitle,
     TextField,
+    Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 
@@ -113,6 +114,12 @@ export const TextCapture: React.FC<TextCaptureProps> = ({ createNewCase }) => {
                     sx={{ marginTop: '8px' }}
                 >
                     <strong>Invalid headers:</strong>
+                    <br />
+                    <Typography variant="body2">
+                        The header should be designated with a single hash (#)
+                        with type, date, time, author. E.g. # ED admission note,
+                        2021-09-01, 10:00, Dr. Smith
+                    </Typography>
                     <pre>{badHeaders.join('\n')}</pre>
                 </Alert>
             )}
