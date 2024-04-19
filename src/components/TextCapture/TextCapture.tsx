@@ -58,7 +58,7 @@ export const TextCapture: React.FC<TextCaptureProps> = ({ createNewCase }) => {
     return (
         <>
             <Button variant="outlined" onClick={handleOpenDialog}>
-                Click here to create new case
+                Create new case
             </Button>
             <Dialog open={dialogOpen} onClose={handleCloseDialog}>
                 <DialogTitle>Create your new case</DialogTitle>
@@ -98,7 +98,12 @@ export const TextCapture: React.FC<TextCaptureProps> = ({ createNewCase }) => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseDialog}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Submit</Button>
+                    <Button
+                        onClick={handleSubmit}
+                        disabled={!textInput || !specialty || !name}
+                    >
+                        Submit
+                    </Button>
                 </DialogActions>
             </Dialog>
             {badHeaders.length > 0 && (

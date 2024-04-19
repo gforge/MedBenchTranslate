@@ -2,8 +2,9 @@ import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { NoteList, TextCapture } from './components';
-import { chartsActions, selectCharts } from './features';
+import { NoteList, TextCapture } from '../components';
+import { chartsActions, selectCharts } from '../features';
+import { OverviewHelp } from './Help';
 
 export function Overview() {
     const dispatch = useDispatch();
@@ -59,6 +60,7 @@ export function Overview() {
             />
             <br />
             <TextCapture createNewCase={createNewCase} />
+            <OverviewHelp show={!charts.length} />
         </>
     );
 }
