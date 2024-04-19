@@ -1,5 +1,6 @@
 import { selectChart } from 'features';
-import { useCallback, useMemo } from 'react';
+import { useDownloadTranslation } from 'helpers';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
@@ -35,7 +36,7 @@ export function Translator() {
             translatedRawNotes,
         });
 
-    const { downloadTranslatedChart } = useDownload({
+    const { downloadTranslatedChart } = useDownloadTranslation({
         chartId,
         language,
         translatedRawNotes,
@@ -64,35 +65,3 @@ export function Translator() {
         />
     );
 }
-
-const useDownload = ({
-    translatedRawNotes,
-    language,
-    chartId,
-}: {
-    translatedRawNotes: Note[];
-    language: string | undefined;
-    chartId: string | undefined;
-}) => {
-    const downloadTranslatedChart = useCallback(() => {
-        console.log('downloadTranslatedChart');
-        // Create a new chart object with the translated notes
-        const translatedChart = translatedRawNotes
-            .map(({ header: { type, date, time, author }, content }) => {
-                const headerStr = `# ${type}, ${date}, ${time}, ${author}`;
-                return `${headerStr}\n${content}`;
-            })
-            .join('\n\n');
-
-        // Create a new file object
-        const blob = new Blob([translatedChart], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${chartId ?? '?'}_${language ?? '?'}.md`;
-        a.click();
-        URL.revokeObjectURL(url);
-    }, [chartId, language, translatedRawNotes]);
-
-    return { downloadTranslatedChart };
-};

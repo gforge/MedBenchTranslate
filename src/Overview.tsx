@@ -29,8 +29,8 @@ export function Overview() {
         [navigate]
     );
     const deleteChart = useCallback(
-        (id: string) => {
-            dispatch(chartsActions.deleteChart(id));
+        (args: { id: string; Language?: string }) => {
+            dispatch(chartsActions.deleteChart(args));
         },
         [dispatch]
     );

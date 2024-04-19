@@ -1,10 +1,10 @@
 export type TranslateFn = (args: { id: string; language: string }) => unknown;
-export type DeleteChartFn = (id: string) => void;
+export type DeleteFn = (args: { id: string; language?: string }) => unknown;
 
 export interface NoteListRowProps {
     chart: Chart;
     translate: TranslateFn;
-    deleteChart: DeleteChartFn;
+    deleteChart: DeleteFn;
     setActive: (chart: Chart) => void;
     setChartName: (args: { id: string; name: string }) => void;
     setChartSpecialty: (args: { id: string; specialty: string }) => void;

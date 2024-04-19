@@ -31,7 +31,20 @@ export const { reducer: chartsReducer, actions: chartsActions } = createSlice({
                 translations: {},
             });
         },
-        deleteChart: (state, { payload: id }: PayloadAction<string>) => {
+        deleteChart: (
+            state,
+            {
+                payload: { id, language },
+            }: PayloadAction<{ id: string; language?: string }>
+        ) => {
+            if (language) {
+                const chart = state.charts.find((c) => getChartId(c) === id);
+                if (!chart) {
+                    return;
+                }
+                delete chart.translations[language];
+                return;
+            }
             state.charts = state.charts.filter((c) => getChartId(c) !== id);
         },
         renameChart: (

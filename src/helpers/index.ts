@@ -3,3 +3,4 @@ export * from './getChartId';
 export * from './getNoteDate';
 export * from './getNoteId';
 export * from './timeCompareNotes';
+export * from './useDownloadTranslation';

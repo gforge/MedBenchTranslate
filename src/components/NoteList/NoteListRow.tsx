@@ -3,6 +3,7 @@ import { getChartId } from 'helpers';
 import { useCallback } from 'react';
 
 import { EditableTd } from './EditableTd';
+import { LanguageButton } from './LanguageButton';
 import { StyledTd as Td } from './StyledTd';
 import { NoteListRowProps } from './types';
 
@@ -47,24 +48,18 @@ export const NoteListRow = ({
                         Translate
                     </Button>
                     {Object.keys(chart.translations).map((language) => (
-                        <Button
+                        <LanguageButton
                             key={language}
-                            variant="contained"
-                            color="secondary"
-                            onClick={() =>
-                                translate({
-                                    id: getChartId(chart),
-                                    language,
-                                })
-                            }
-                        >
-                            {language}
-                        </Button>
+                            language={language}
+                            chart={chart}
+                            translate={translate}
+                            deleteChart={deleteChart}
+                        />
                     ))}
                     <Button
                         variant="contained"
                         color="error"
-                        onClick={() => deleteChart(getChartId(chart))}
+                        onClick={() => deleteChart({ id: getChartId(chart) })}
                     >
                         Delete
                     </Button>

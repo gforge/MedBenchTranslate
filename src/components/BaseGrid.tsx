@@ -1,4 +1,5 @@
-import { Box, Button, ButtonGroup, Chip, styled } from '@mui/material';
+import { FileDownload } from '@mui/icons-material';
+import { Box, Button, ButtonGroup, Chip, Stack, styled } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import {
     OriginalChart,
@@ -84,7 +85,10 @@ export const BaseGrid = ({
                             onClick={onSubmit}
                             color="success"
                         >
-                            Save
+                            <Stack direction="row" alignItems="center" gap={1}>
+                                <FileDownload />
+                                Save
+                            </Stack>
                         </Button>
                         <Button
                             variant="contained"
