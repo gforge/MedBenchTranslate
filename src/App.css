@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+body {
+  background-color: #fff;
+}
+
 header {
   position: fixed;
   top: 0;
