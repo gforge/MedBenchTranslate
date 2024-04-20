@@ -4,9 +4,10 @@ import { MarkdownTypography } from '../../MarkdownTypography';
 import { OriginalNoteHeader } from './Header';
 
 export interface OriginalNoteProps extends Note {
-    activated: boolean;
+    activated?: boolean;
     activateNote?: () => void;
     id: string;
+    hideActions?: boolean;
 }
 
 export const OriginalNote = ({
@@ -15,6 +16,7 @@ export const OriginalNote = ({
     content,
     activated,
     activateNote,
+    hideActions,
 }: OriginalNoteProps) => (
     <Card
         id={id}
@@ -29,10 +31,16 @@ export const OriginalNote = ({
             <OriginalNoteHeader {...header} />
             <MarkdownTypography content={content} />
         </CardContent>
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
-            <Button size="small" onClick={activateNote} disabled={activated}>
-                Translate
-            </Button>
-        </CardActions>
+        {!hideActions && (
+            <CardActions sx={{ justifyContent: 'flex-end' }}>
+                <Button
+                    size="small"
+                    onClick={activateNote}
+                    disabled={activated}
+                >
+                    Translate
+                </Button>
+            </CardActions>
+        )}
     </Card>
 );

@@ -16,6 +16,7 @@ const Th = styled('th')({
 export const NoteList = ({
     charts,
     translate,
+    uploadTranslation,
     deleteChart,
     setChartName,
     setChartSpecialty,
@@ -44,6 +45,7 @@ export const NoteList = ({
                             key={getChartId(chart)}
                             chart={chart}
                             translate={translate}
+                            uploadTranslation={uploadTranslation}
                             deleteChart={deleteChart}
                             setActive={setActive}
                             setChartName={setChartName}

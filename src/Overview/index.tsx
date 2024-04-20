@@ -29,6 +29,13 @@ export function Overview() {
         },
         [navigate]
     );
+    const uploadTranslation = useCallback(
+        (args: { id: string; language: string; translation: Note[] }) => {
+            dispatch(chartsActions.uploadTranslation(args));
+        },
+        [dispatch]
+    );
+
     const deleteChart = useCallback(
         (args: { id: string; Language?: string }) => {
             dispatch(chartsActions.deleteChart(args));
@@ -54,6 +61,7 @@ export function Overview() {
             <NoteList
                 charts={charts}
                 translate={translate}
+                uploadTranslation={uploadTranslation}
                 deleteChart={deleteChart}
                 setChartName={setChartName}
                 setChartSpecialty={setChartSpecialty}
