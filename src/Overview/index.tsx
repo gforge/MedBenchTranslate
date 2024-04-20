@@ -1,9 +1,12 @@
+import { Stack } from '@mui/material';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { NoteList, TextCapture } from '../components';
 import { chartsActions, selectCharts } from '../features';
+import { InitStore } from '../InitStore';
+import { DumpStore } from './DumpStore';
 import { OverviewHelp } from './Help';
 
 export function Overview() {
@@ -67,7 +70,11 @@ export function Overview() {
                 setChartSpecialty={setChartSpecialty}
             />
             <br />
-            <TextCapture createNewCase={createNewCase} />
+            <Stack spacing={2}>
+                <TextCapture createNewCase={createNewCase} />
+                <DumpStore />
+                <InitStore />
+            </Stack>
             <OverviewHelp show={!charts.length} />
         </>
     );

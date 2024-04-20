@@ -66,6 +66,13 @@ export const OverviewHelp = ({ show }: { show: boolean }) => {
                 switch computers or browsers, you will not have access to your
                 cases.
             </Typography>
+            <Typography variant="body1" marginTop={'10px'}>
+                The data can be exported and imported as a JSON file, the dump
+                is saved with the file ending <strong>.mbc</strong>. This can be
+                useful for backup purposes or for sharing cases with others. You
+                can also upload single <strong>.mb</strong> files to load a
+                case.
+            </Typography>
         </Paper>
     );
 };

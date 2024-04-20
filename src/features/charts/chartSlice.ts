@@ -31,6 +31,9 @@ export const { reducer: chartsReducer, actions: chartsActions } = createSlice({
                 translations: {},
             });
         },
+        initStore: (state, action: PayloadAction<{ charts: Chart[] }>) => {
+            state.charts = action.payload.charts;
+        },
         uploadTranslation: (
             state,
             action: PayloadAction<{
