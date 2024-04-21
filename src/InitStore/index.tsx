@@ -37,7 +37,7 @@ export const InitStore = () => {
             >
                 <Stack direction="row" alignItems="center" gap={1}>
                     <FileUpload />
-                    Initiate store
+                    Initiate cases from .mbc file
                 </Stack>
             </Button>
             <InitAlert error={error} setError={setError} />
