@@ -71,7 +71,7 @@ export function Overview() {
             />
             <br />
             <Stack spacing={2}>
-                <TextCapture createNewCase={createNewCase} />
+                <TextCapture createNewCase={createNewCase} charts={charts} />
                 <DumpStore />
                 <InitStore />
             </Stack>

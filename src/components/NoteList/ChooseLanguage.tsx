@@ -45,7 +45,7 @@ export const ChooseLanguage = ({
             <DialogContent>
                 <Autocomplete
                     value={language}
-                    id="free-solo-demo"
+                    id="language-select"
                     freeSolo
                     options={existingLanguages}
                     renderInput={(params) => (
