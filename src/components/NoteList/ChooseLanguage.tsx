@@ -49,7 +49,13 @@ export const ChooseLanguage = ({
                     freeSolo
                     options={existingLanguages}
                     renderInput={(params) => (
-                        <TextField {...params} label="Language" />
+                        <TextField
+                            {...params}
+                            label="Language"
+                            helperText="Note that you can choose any language, not only the ones
+                                        listed below. Those are only for making it easier to choose
+                                        a language."
+                        />
                     )}
                     onInputChange={(_event, newInputValue) => {
                         setLanguage(newInputValue);
